@@ -1,0 +1,7 @@
+# git ignore rules
+# ignore temporary files
+*~
+# ignore object files
+*.[oa]
+*.out
+
