@@ -79,38 +79,9 @@ namespace main_savitch_2C
         double maximum( ) const;
         // FRIEND FUNCTIONS
         friend statistician operator +
-            (const statistician & s1, const statistician & s2)	
-		{
-			statistician result;
-			if(s1.length() == 0)
-				return s2;
-			else if (s2.length() == 0)
-				return s1;
-			result.count = s1.count + s2.count;
-			result.total = s1.total + s2.total;
-			result.tinyest = s1.tinyest > s2.tinyest ? s2.tinyest : s1.tinyest;
-			result.largest = s1.largest < s2.largest ? s2.largest : s1.largest;
-			return result;
-		}
+            (const statistician & s1, const statistician & s2);	
         friend statistician operator *
-            (double scale, const statistician & s)
-		{
-			statistician result;
-			if(s.length() == 0)
-				return s;
-			result.count = s.count;
-			result.total = scale * s.total;
-			if(scale > 0){
-				result.tinyest = scale * s.tinyest;
-				result.largest = scale * s.largest;
-			}
-			else{
-				result.largest = scale * s.tinyest;
-				result.tinyest = scale * s.largest;
-			}
-
-			return result;
-		}   
+            (double scale, const statistician & s);   
 	private:
         int count;       // How many numbers in the sequence
         double total;    // The sum of all the numbers in the sequence
