@@ -39,40 +39,22 @@ namespace main_savitch_3
 	void sequence::insert(const value_type& entry)
 	{
 		assert( size() < CAPACITY);
-		if(is_item()) {
-			++used;
-			for(size_type i = used-1; i>current_index; --i) 
-			{
-				data[i] = data[i-1];
-			}
-			data[current_index] = entry;
-		} else {
-			++used;
-			current_index = 0;
-			for(size_type i = used-1; i>current_index; --i) 
-			{
-				data[i] = data[i-1];
-			}
-			data[current_index] = entry;
-		}
+		if(!is_item()) current_index = 0;
+		for(size_type i = used; i>current_index; --i) 
+			data[i] = data[i-1];
+		data[current_index] = entry;
+		++used;
 	}
 
 	void sequence::attach(const value_type& entry)
 	{
 		assert( size() < CAPACITY);
-		if(is_item()) {
-			++used;
-			++current_index;
-			for(size_type i = used-1; i>current_index; --i)
-			{
-				data[i] = data[i-1];
-			}
-			data[current_index] = entry;
-		} else {
-			++used;
-			current_index = used - 1;
-			data[current_index] = entry;
-		}
+		if(!is_item()) current_index= used-1;
+		++current_index;
+		for(size_type i = used; i>current_index; --i)
+			data[i] = data[i-1];
+		data[current_index] = entry; 
+		++used;
 	}
 
 	void sequence::remove_current()
