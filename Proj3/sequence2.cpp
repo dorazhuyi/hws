@@ -3,8 +3,13 @@ FILE: sequence2.cxx
 CLASS IMPLEMENTED: sequence2 (see sequence2.h for documentation)
 INVARIANT for the bag class:
 	1. The number of items in the sequence is stored in the private variable used.
-	2. The dynamic sequence has a private variable, data, which is a pointer to a value_type item. The constructor for the dynamic sequence will allocate a dynamic array, and point data at the newly allocated array. As a program runs, a new, larger dynamic array can be allocated when we need more capacity.
+	2. The dynamic sequence has a private variable, data, which is a pointer to a value_type item. 
+	   The constructor for the dynamic sequence will allocate a dynamic array, and point data at 
+	   the newly allocated array. As a program runs, a new, larger dynamic array can be allocated
+	   when we need more capacity.
 	3. Current capacity of the dynamic sequence is stored in the private variable capacity.
+	4. When the number of used itmes reaches the capacity, the insert and attach function will activate
+	   resize function to assign a larger capacity.
 
 *****************************************/
 
@@ -62,8 +67,8 @@ namespace main_savitch_4
 
 	void sequence::advance()
 	{
-		if(is_item())
-			++current_index;
+		assert(is_item());
+		++current_index;
 	}
 
 	void sequence::insert(const value_type& entry)
@@ -91,11 +96,10 @@ namespace main_savitch_4
 
 	void sequence::remove_current()
 	{
-		if(is_item()) {
-			for(size_type i=current_index; i<used-1;++i)
-				data[i] = data[i+1];
-			--used;
-		}
+		assert(is_item());
+		for(size_type i=current_index; i<used-1;++i)
+			data[i] = data[i+1];
+		--used;
 	}
 
 	// Const member funcs
@@ -111,8 +115,8 @@ namespace main_savitch_4
 
 	sequence::value_type sequence::current() const
 	{
-		if(is_item())
-			return data[current_index];
+		assert(is_item());
+		return data[current_index];
 	}
 
 	// Operator overload
@@ -141,15 +145,17 @@ namespace main_savitch_4
 		used += source.used;
 	}
 
-	void sequence::operator +(const sequence& source)
-	{
-		*this+=source;
-	}
-
 	sequence::value_type sequence::operator[](sequence::size_type index) const
 	{
-		if(index < used)
-			return data[index];
+		assert(index < used);
+		return data[index];
+	}
+
+	sequence operator +(const sequence& source1, const sequence& source2)
+	{
+		sequence result = source1;
+		result += source2;
+		return result;
 	}
 
 }//end namespace
