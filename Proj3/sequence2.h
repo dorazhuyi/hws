@@ -80,7 +80,7 @@
 //	 void operator +=(const sequence& source)
 //     Postcondition: each item in source has been added to this sequence.
 //
-//   operator +(const sequence& source1,const sequence& source2)
+//   sequence operator +(const sequence& source1,const sequence& source2)
 //     postcondition: x+y; x+y contains all the item of x, followed by all 
 //     the items in y
 //
@@ -125,7 +125,6 @@ namespace main_savitch_4
         bool is_item( ) const;
         value_type current( ) const;
 		void operator +=(const sequence& source);
-		void operator +(const sequence& source);
 		value_type operator[](size_type index) const;
     private:
         value_type* data;
@@ -133,6 +132,8 @@ namespace main_savitch_4
         size_type current_index;
 	    size_type capacity;
     };
+
+	sequence operator +(const sequence& source1, const sequence& source2);
 }
 
 #endif
