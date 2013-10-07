@@ -1,3 +1,14 @@
+/****************************************
+FILE: sequence2.cxx
+CLASS IMPLEMENTED: sequence2 (see sequence2.h for documentation)
+INVARIANT for the bag class:
+	1. The number of items in the sequence is stored in the private variable used.
+	2. The dynamic sequence has a private variable, data, which is a pointer to a value_type item. The constructor for the dynamic sequence will allocate a dynamic array, and point data at the newly allocated array. As a program runs, a new, larger dynamic array can be allocated when we need more capacity.
+	3. Current capacity of the dynamic sequence is stored in the private variable capacity.
+
+*****************************************/
+
+
 #include <algorithm>
 #include <assert.h>
 #include "sequence2.h"
